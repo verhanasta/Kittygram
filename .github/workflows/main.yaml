@@ -300,9 +300,8 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "docker-compose.production.yml"
-          target: "/home/yc-user/kittygram"
+          target: "/home/verhanasta/kittygram"
       - name: Execute deployment via SSH
         uses: appleboy/ssh-action@master
         with:
@@ -311,7 +310,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd /home/yc-user/kittygram
+            cd /home/verhanasta/kittygram
             sudo docker-compose -f docker-compose.production.yml pull
             sudo docker-compose -f docker-compose.production.yml down
             sudo docker-compose -f docker-compose.production.yml up -d
