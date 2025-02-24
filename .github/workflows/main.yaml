@@ -294,17 +294,26 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
-      - shell: bash
-        env:
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: |
-          echo "POSTGRES_DB=$POSTGRES_DB" >> .env
-          echo "POSTGRES_USER=$POSTGRES_USER" >> .env
-          echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
-          echo "DATABASE_URL=$DATABASE_URL" >> .env
+#      - shell: bash
+#        env:
+#          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+#          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+#          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+#          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+#        run: |
+#          echo "POSTGRES_DB=$POSTGRES_DB" >> .env
+#          echo "POSTGRES_USER=$POSTGRES_USER" >> .env
+#          echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
+#          echo "DATABASE_URL=$DATABASE_URL" >> .env
+
+      - name: Copy .env to the server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: ".env"
+          target: "/home/verhanasta/kittygram"
       - name: Copy docker-compose.yml to the server
         uses: appleboy/scp-action@master
         with:
