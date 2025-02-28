@@ -186,4 +186,8 @@ jobs:
         with:
           to: ${{ secrets.CHAT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Деплой прошёл
+          message: |
+            🚀 Деплой прошёл успешно!
+            👤 Автор: ${{ github.actor }}
+            📝 Коммит: ${{ github.event.commits[0].message }}
+            🔗 Ссылка на коммит: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
